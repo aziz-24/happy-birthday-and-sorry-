@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun!</title>
+    
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Memuat Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Menggunakan font Inter sebagai default */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* --- CSS Animasi Konfeti (Jatuh) --- */
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: fall 10s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- BARU: CSS Animasi Konfeti (Ledakan/Burst) --- */
+        .confetti-burst {
+            position: absolute;
+            bottom: -10px; /* Mulai dari bawah layar */
+            left: 50%;
+            width: 10px;
+            height: 15px; /* Dibuat lonjong biar lebih mirip konfeti */
+            border-radius: 50%;
+            animation: burst 1.5s ease-out forwards; /* 'forwards' agar berhenti di state akhir */
+            opacity: 0; /* Mulai dari transparan */
+        }
+
+        @keyframes burst {
+            0% {
+                transform: translate(-50%, 0) rotateZ(0);
+                opacity: 1;
+            }
+            100% {
+                /* Transform diatur oleh JavaScript */
+                transform: var(--burst-transform); 
+                opacity: 0;
+            }
+        }
+
+        /* --- BARU: CSS Animasi Goyang (Shake) --- */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+        }
+        
+        .shake-animation {
+            animation: shake 0.3s ease-in-out;
+        }
+
+
+        /* Warna-warna konfeti (dipakai oleh JS) */
+        .confetti:nth-child(10n + 1) { background-color: #f472b6; }
+        .confetti:nth-child(10n + 2) { background-color: #ec4899; }
+        .confetti:nth-child(10n + 3) { background-color: #c084fc; }
+        .confetti:nth-child(10n + 4) { background-color: #a855f7; }
+        .confetti:nth-child(10n + 5) { background-color: #fef08a; }
+        .confetti:nth-child(10n + 6) { background-color: #67e8f9; }
+        .confetti:nth-child(10n + 7) { background-color: #f9a8d4; }
+        .confetti:nth-child(10n + 8) { background-color: #d8b4fe; }
+        .confetti:nth-child(10n + 9) { background-color: #fde68a; }
+        .confetti:nth-child(10n + 0) { background-color: #a7f3d0; }
+
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-pink-100 to-purple-200">
+
+    
+    <!-- Kontainer utama untuk centering -->
+    <div class="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+        
+        <!-- Kontainer untuk semua konfeti -->
+        <div class="confetti-container" id="confetti-wrapper">
+            <!-- Konfeti (jatuh) akan dibuat oleh JavaScript -->
+        </div>
+
+        <!-- LAYAR 1: Halaman Sampul (Cover) -->
+        <div id="coverScreen" class="relative z-20 flex flex-col items-center justify-center text-center transition-opacity duration-500 p-4"> 
+            <!-- Kartu kaca buram -->
+            <div class="bg-white/70 backdrop-blur-sm p-8 sm:p-12 rounded-2xl shadow-lg max-w-md w-full">
+
+                <!-- Ikon Kue Ulang Tahun -->
+                <div id="cakeIcon" class="w-32 h-32 text-pink-500 transition-transform duration-300 mx-auto"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                      <!-- Api Lilin -->
+                      <path d="M12.86 3.42C12.56 2.92 11.84 2.92 11.54 3.42C11.3 3.82 11.45 4.3 11.83 4.54C12.77 5.18 12.31 6.64 11.23 6.84C10.15 7.04 9.3 6.07 9.5 5C9.6 4.41 9.17 3.86 8.59 3.86C7.5 3.86 6.9 5.2 7.76 5.86C8.61 6.52 9.87 6.4 10.87 5.79C11.02 5.69 11.19 5.64 11.36 5.64C11.75 5.64 12.11 5.41 12.28 5.06C12.73 4.2 12.18 3.19 11.36 3.19C11.01 3.19 10.7 3.39 10.58 3.71C10.46 3.9 10.53 4.14 10.72 4.24C10.97 4.38 11.02 4.7 10.83 4.9C10.13 5.92 11.03 7.33 12.3 7.1C13.57 6.87 14.15 5.3 13.53 4.2C13.3 3.77 13.07 3.6 12.86 3.42Z"/>
+                      <!-- Lilin -->
+                      <path d="M11 7.5H13V10.5H11V7.5Z"/>
+                      <!-- Kue (Tier Atas) -->
+                      <path d="M18 11H6C5.44772 11 5 11.4477 5 12V14C5 14.5523 5.44772 15 6 15H18C18.5523 15 19 14.5523 19 14V12C19 11.4477 18.5523 11 18 11Z"/>
+                      <!-- Kue (Tier Bawah) -->
+                      <path d="M20 16H4C3.44772 16 3 16.4477 3 17V19C3 19.5523 3.44772 20 4 20H20C20.5523 20 21 19.5523 21 19V17C21 16.4477 20.5523 16 20 16Z"/>
+                    </svg>
+                </div>
+                
+                <h2 class="text-2xl font-bold text-gray-700 mt-4">Ada sesuatu buat kamu...</h2>
+                
+                <!-- Teks pemanis -->
+                <p class="text-gray-500 mt-2 text-lg">Coba klik tombol di bawah!</p>
+
+                <button id="openButton" class="mt-6 px-8 py-3 bg-pink-500 text-white font-bold rounded-lg shadow-md hover:bg-pink-600 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75">
+                    Buka Hadiahnya!
+                </button>
+
+            </div> <!-- Penutup kartu kaca buram -->
+        </div>
+
+        <!-- LAYAR 2: Kartu Ucapan Utama -->
+        <main id="card" class="relative z-10 bg-white p-6 sm:p-10 rounded-2xl shadow-xl max-w-lg w-full text-center transform transition-all duration-500 scale-95 opacity-0 hidden">
+            
+            <!-- Konten Awal: Ucapan -->
+            <div id="originalContent" class="transition-opacity duration-300">
+                <!-- ===== EDIT FOTO DI SINI ===== -->
+                <img src="https://placehold.co/150x150/fbcfe8/db2777?text=Foto+Kamu" 
+                     alt="Foto Ulang Tahun"
+                     class="w-32 h-32 rounded-full mx-auto mb-5 border-4 border-pink-200 shadow-lg object-cover">
+
+                <!-- Teks Ucapan -->
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Selamat Ulang Tahun!</h1>
+                <h2 class="text-2xl font-medium text-pink-600 mb-4">Orang Paling Spesial!</h2>
+                
+                <p class="text-gray-600 mb-8 text-base sm:text-lg">
+                    Mungkin ini sedikit telat, maaf yaa... 😅
+                    <br><br>
+                    Tapi, selamat ulang tahun, ya! Semoga hari ini tetap jadi hari paling bahagia buat kamu. Terima kasih udah jadi orang yang luar biasa. Semoga semua mimpi dan harapan kamu di tahun ini bisa terwujud.
+                    <br><br>
+                    Selalu sehat, selalu bahagia, dan selalu jadi kamu yang aku kenal. 💖
+                </p>
+                
+                <!-- Tombol Kejutan Terakhir -->
+                <button id="surpriseButton" class="w-full sm:w-auto px-8 py-3 bg-pink-500 text-white font-bold rounded-lg shadow-md hover:bg-pink-600 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75">
+                    Ada Kejutan Terakhir...
+                </button>
+            </div>
+
+            <!-- Konten Akhir: Pesan Permintaan Maaf (Tersembunyi) -->
+            <div id="finalMessage" class="hidden transition-opacity duration-300 opacity-0">
+                
+                <div class="w-16 h-16 mx-auto mb-4 text-pink-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383-.218l-.022.012-.007.004-.004.001a.752.752 0 01-.704 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Satu hal lagi...</h3>
+                <p class="text-gray-600 text-lg">
+                    Maaf ya kalau selama ini aku belum bisa kasih yang terbaik buat kamu. Aku tahu aku masih banyak salah dan kurangnya. 
+                    <br><br>
+                    Dan maaf juga, aku cuma bisa kasih ini buat kamu. Tapi semoga sedikit ucapan tulus ini bisa bikin kamu bahagia hari ini.
+                    <br><br>
+                    You mean the world to me❤️
+                    -Aziz
+                </p>
+            </div>
+
+        </main>
+        
+        <!-- LAYAR 3: Modal (Popup) Kejutan Terakhir -->
+        <div id="surpriseModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+            
+            <!-- Konten Modal -->
+            <div id="modalContent" class="bg-white p-8 rounded-2xl shadow-2xl text-center max-w-sm w-full transform transition-all duration-300 scale-95 opacity-0">
+                
+                <!-- Ikon Hati Berdenyut -->
+                <div class="w-16 h-16 mx-auto mb-4 text-pink-500 animate-pulse">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383-.218l-.022.012-.007.004-.004.001a.752.752 0 01-.704 0z" />
+                    </svg>
+                </div>
+
+                <!-- Teks Modal -->
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Kejutan!</h3>
+                <p class="text-gray-600 text-lg mb-6">
+                    I love you more than words can say! 🥳
+                </p>
+                
+                <!-- Tombol Tutup Modal -->
+                <button id="closeButton" class="w-full px-6 py-2 bg-purple-500 text-white font-bold rounded-lg shadow-md hover:bg-purple-600 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== EDIT AUDIO DI SINI ===== -->
+    <!-- Audio untuk Lagu Ulang Tahun (DITAMBAHKAN LOOP) -->
+    <audio id="hbdSong" preload="auto" loop>
+        <source src="HAPPY BIRTHDAY INSTRUMENTAL (Piano Classic Arrangement - Happy Birthday to You by happysongchannel).mp3" type="audio/mpeg">
+        Browser kamu tidak mendukung elemen audio.
+    </audio>
+
+    <!-- Audio untuk Sound Effect Konfeti -->
+    <audio id="confettiSound" preload="auto">
+        <source src="25 confetti Sound effect.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Audio Instrumental DIHAPUS -->
+    <!-- 
+    <audio id="instrumentalSong" preload="auto" loop> 
+        <source src="path/to/your/instrumental.mp3" type="audio/mpeg">
+    </audio>
+    -->
+
+    <script>
+        /* --- Logika JavaScript --- */
+
+        const confettiWrapper = document.getElementById('confetti-wrapper');
+        const openButton = document.getElementById('openButton');
+        const coverScreen = document.getElementById('coverScreen');
+        const card = document.getElementById('card');
+        const hbdSong = document.getElementById('hbdSong');
+        
+        const cakeIcon = document.getElementById('cakeIcon');
+        
+        const surpriseButton = document.getElementById('surpriseButton');
+        const closeButton = document.getElementById('closeButton');
+        const surpriseModal = document.getElementById('surpriseModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        const confettiSound = document.getElementById('confettiSound');
+        /* const instrumentalSong DIHAPUS */
+        
+        const totalConfetti = 100; // Jumlah konfeti jatuh
+        const confettiColors = [
+            '#f472b6', '#ec4899', '#c084fc', '#a855f7', '#fef08a', 
+            '#67e8f9', '#f9a8d4', '#d8b4fe', '#fde68a', '#a7f3d0'
+        ];
+
+        /* 1. Membuat Konfeti (Jatuh) */
+        for (let i = 0; i < totalConfetti; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDelay = Math.random() * 10 + 's';
+            confetti.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            confetti.style.backgroundColor = confettiColors[i % confettiColors.length];
+            confettiWrapper.appendChild(confetti);
+        }
+
+        /* 2. Fungsi untuk Ledakan Konfeti */
+        function createBurst() {
+            const burstAmount = 50; // Jumlah konfeti ledakan
+            
+            for (let i = 0; i < burstAmount; i++) {
+                const burst = document.createElement('div');
+                burst.className = 'confetti-burst';
+                burst.style.backgroundColor = confettiColors[i % confettiColors.length];
+
+                /* Mengatur properti CSS variabel untuk animasi */
+                const x = (Math.random() - 0.5) * 2 * 100; /* Target X acak (-100vw s/d 100vw) */
+                const y = -(Math.random() * 70 + 30);      /* Target Y acak (30vh s/d 100vh ke ATAS) */
+                const rot = Math.random() * 720 + 360;     /* Target rotasi acak */
+                
+                /* Format: translate(X, Y) rotateZ(R) */
+                const transformString = `translate(${x}vw, ${y}vh) rotateZ(${rot}deg)`;
+                burst.style.setProperty('--burst-transform', transformString);
+                
+                /* Delay acak agar ledakan tidak bersamaan */
+                burst.style.animationDelay = (Math.random() * 0.2) + 's';
+                
+                confettiWrapper.appendChild(burst);
+                
+                /* Hapus elemen setelah animasi selesai */
+                setTimeout(() => {
+                    burst.remove();
+                }, 2000); /* Durasi animasi 1.5s + buffer */
+            }
+        }
+        
+        /* --- BARU: Logika untuk mainkan lagu SETELAH sound effect --- */
+        confettiSound.addEventListener('ended', () => {
+            hbdSong.play().catch(error => {
+                console.warn("Autoplay hbdSong (lagu utama) dicegah:", error);
+            });
+        });
+
+
+        /* 3. Logika Halaman Sampul (Cover) */
+        let tapCount = 0;
+        
+        openButton.addEventListener('click', () => {
+            tapCount++;
+
+            /* 3.1. Animasi Goyang (Shake) */
+            cakeIcon.classList.add('shake-animation');
+            /* Hapus kelas animasi setelah selesai agar bisa di-trigger lagi */
+            setTimeout(() => {
+                cakeIcon.classList.remove('shake-animation');
+            }, 300); /* 300ms = durasi animasi shake */
+
+            /* 3.2. Ubah Teks Tombol */
+            if (tapCount === 1) {
+                openButton.textContent = 'Klik lagi!';
+            } else if (tapCount === 2) {
+                openButton.textContent = 'Sekali lagi...';
+            } else if (tapCount >= 3) {
+                
+                /* 3.3. Logika Membuka Hadiah */
+                openButton.disabled = true; /* Matikan tombol */
+                openButton.textContent = 'Membuka...';
+
+                /* Sembunyikan halaman sampul */
+                coverScreen.classList.add('opacity-0');
+                
+                /* Putar lagu DIHAPUS DARI SINI */
+                /*
+                hbdSong.play().catch(error => {
+                    console.warn("Autoplay audio dicegah oleh browser:", error);
+                });
+                */
+
+                /* Tunggu animasi sampul (fade-out) selesai */
+                setTimeout(() => {
+                    coverScreen.style.display = 'none';
+
+                    /* Tampilkan kartu ucapan (masih tersembunyi) */
+                    card.classList.remove('hidden');
+
+                    /* PICU LEDAKAN KONFETI! */
+                    createBurst(); 
+                    
+                    /* --- DIPINDAHKAN KE SINI --- */
+                    /* Putar Suara Konfeti (Lagu HBD akan main setelah ini selesai) */
+                    confettiSound.play().catch(error => {
+                        console.warn("Sound effect konfeti gagal diputar:", error);
+                    });
+                    /* --------------------------- */
+                    
+                    /* Animasikan kartu ucapan (fade-in) */
+                    setTimeout(() => {
+                        card.classList.remove('scale-95', 'opacity-0');
+                        card.classList.add('scale-100', 'opacity-100');
+                    }, 100);
+
+                }, 500); /* 500ms (sesuai durasi transisi sampul) */
+            }
+        });
+
+
+        /* 4. Logika untuk Modal (Popup Kejutan) */
+        const openModal = () => {
+            
+            /* --- SEMUA LOGIKA AUDIO DIHAPUS DARI SINI --- */
+
+            surpriseModal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 20);
+        };
+
+        const closeModal = () => {
+            modalContent.classList.add('scale-95', 'opacity-0');
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            
+            /* --- SEMUA LOGIKA AUDIO DIHAPUS DARI SINI --- */
+
+            setTimeout(() => {
+                surpriseModal.classList.add('hidden');
+
+                /* === LOGIKA MEMUNCULKAN PESAN TERAKHIR === */
+                const originalContent = document.getElementById('originalContent');
+                const finalMessage = document.getElementById('finalMessage');
+
+                /* 1. Sembunyikan konten asli (fade out) */
+                originalContent.classList.add('opacity-0');
+
+                /* 2. Tunggu transisi fade-out selesai */
+                setTimeout(() => {
+                    originalContent.style.display = 'none'; /* Sembunyikan total */
+                    
+                    /* 3. Tampilkan pesan terakhir (masih transparan) */
+                    finalMessage.classList.remove('hidden');
+                    
+                    /* 4. Animasikan fade-in */
+                    setTimeout(() => {
+                        finalMessage.classList.remove('opacity-0');
+                    }, 50); /* delay singkat untuk memicu transisi */
+
+                }, 300); /* 300ms (sesuai durasi transisi opacity) */
+
+            }, 300); /* 300ms (durasi transisi modal) */
+        };
+
+        surpriseButton.addEventListener('click', openModal);
+        closeButton.addEventListener('click', closeModal);
+
+        /* Tutup modal jika klik di luar area konten */
+        surpriseModal.addEventListener('click', (event) => {
+            if (event.target === surpriseModal) {
+                closeModal();
+            }
+        });
+
+    </script>
+
+</body>
+</html>
+
